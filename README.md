@@ -26,11 +26,11 @@ I will work on more, but if you want to implement a backend for the platform you
 write RAW PCM on his socket
 
 flags:
--s <path> : where do you want your socket, /tmp/shout by default
--r <rate> : PCM Hz, 48000 by default
--b 16|32 : bit-depth, 16 by default
--c 1|2, 2 by default
--d : turn log, disabled by default
+- -s <path> : where do you want your socket, /tmp/shout by default
+- -r <rate> : PCM Hz, 48000 by default
+- -b 16|32 : bit-depth, 16 by default
+- -c 1|2, 2 by default
+- -d : turn log, disabled by default
 
 example of how to send data to shout:
 ```
