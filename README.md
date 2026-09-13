@@ -7,7 +7,7 @@ imagine you are making something that requires audio and you want to port it to 
 ## install
 clone the repo, enter to the directory and run:
 ```
-chmod +x INSTALL
+chmod +x COMPILE
 ./COMPILE <backend>
 ```
 where backend is the backend you want to, for example, if you want pipewire, you can do:
