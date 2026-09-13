@@ -1,0 +1,9 @@
+there are js this guidelines:
+- dont do stupid things
+- dont bloat it more
+- dont add third party dependencies on shout, for backend you can add everything you need to make it work
+- by making a pull request, you accept that the license of the code you did is now the project one(Public Domain/Unlicensed)
+
+obviusly, if you do a fork you can do whatever you want this is just for pull request on this repo lol
+
+and dont forget to add yourself to AUTHORS :)

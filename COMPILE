@@ -1,0 +1,23 @@
+#!/bin/sh
+CC=${CC:-cc}
+cd "$(dirname "$0")"
+
+if [ "$#" -lt 1 ]; then
+  printf 'usage: %s <backend>\n' "$0"
+  exit 1
+fi
+
+case "$1" in
+  pipewire)
+    CFLAGS=$(pkg-config --cflags libpipewire-0.3)
+    LIBS="-pthread $(pkg-config --libs libpipewire-0.3)"
+    BACKEND=src/backends/pipewire/pipewire.c
+    ;;
+  *)
+    printf 'unknown backend: %s\n' "$1"
+    exit 1
+    ;;
+esac
+
+$CC -Wall -Wextra -Isrc $CFLAGS -o shout src/shout.c src/sout.c "$BACKEND" $LIBS
+printf 'built: ./shout (%s)\n' "$1"
