@@ -7,8 +7,8 @@
 #include <string.h>
 #include <time.h>
 
-#include "backend.h"
-#include "sout.h"
+#include "../../backend.h"
+#include "../../sout.h"
 
 #include <pipewire/pipewire.h>
 #include <spa/param/audio/format-utils.h>
@@ -119,7 +119,7 @@ void on_state_changed(void *data, enum pw_stream_state old,
   (void)data;
   (void)old;
   if (state == PW_STREAM_STATE_ERROR && error)
-    sout("pipewire error: %s\n", error);
+    soutf("pipewire error: %s\n", error);
 }
 
 struct pw_stream_events stream_events = {
@@ -142,19 +142,19 @@ int backend_init(const backend_format_t *fmt) {
 
   loop = pw_main_loop_new(NULL);
   if (!loop) {
-    sout("pw_main_loop_new failed\n");
+    soutf("pw_main_loop_new failed\n");
     goto fail;
   }
 
   context = pw_context_new(pw_main_loop_get_loop(loop), NULL, 0);
   if (!context) {
-    sout("pw_context_new failed\n");
+    soutf("pw_context_new failed\n");
     goto fail_loop;
   }
 
   core = pw_context_connect(context, NULL, 0);
   if (!core) {
-    sout("pw_context_connect failed\n");
+    soutf("pw_context_connect failed\n");
     goto fail_context;
   }
 
@@ -163,7 +163,7 @@ int backend_init(const backend_format_t *fmt) {
       PW_KEY_MEDIA_ROLE, "Music", PW_KEY_APP_NAME, "shout", PW_KEY_NODE_NAME,
       "shout", PW_KEY_NODE_DESCRIPTION, "shout (audio daemon)", NULL);
   if (!props) {
-    sout("pw_properties_new failed\n");
+    soutf("pw_properties_new failed\n");
     goto fail_loop;
   }
 
@@ -172,7 +172,7 @@ int backend_init(const backend_format_t *fmt) {
 
   stream = pw_stream_new(core, "shout", props);
   if (!stream) {
-    sout("pw_stream_new failed\n");
+    soutf("pw_stream_new failed\n");
     goto fail_loop;
   }
 
@@ -195,12 +195,12 @@ int backend_init(const backend_format_t *fmt) {
       stream, PW_DIRECTION_OUTPUT, PW_ID_ANY,
       PW_STREAM_FLAG_AUTOCONNECT | PW_STREAM_FLAG_MAP_BUFFERS, params, 1);
   if (res < 0) {
-    sout("pw_stream_connect failed: %s\n", strerror(-res));
+    soutf("pw_stream_connect failed: %s\n", strerror(-res));
     goto fail_stream;
   }
 
   if (pthread_create(&pw_thread, NULL, loop_thread, NULL) != 0) {
-    sout("pthread_create failed\n");
+    soutf("pthread_create failed\n");
     goto fail_stream;
   }
   pw_thread_started = 1;

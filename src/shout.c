@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
 
   if (rate <= 0 || (bit_depth != 16 && bit_depth != 32) ||
       (channels != 1 && channels != 2)) {
-    sout("usage: shout [-s socket] [-r rate] [-b 16|32] [-c 1|2] [-d]\n");
+    soutf("usage: shout [-s socket] [-r rate] [-b 16|32] [-c 1|2] [-d]\n");
     return 1;
   }
 
@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
 
   if (bind(fd, (struct sockaddr *)&addr, sizeof addr) < 0 ||
       listen(fd, 1) < 0) {
-    sout("failed to set up socket\n");
+    soutf("failed to set up socket\n");
     return 1;
   }
 
@@ -63,8 +63,8 @@ int main(int argc, char *argv[]) {
   signal(SIGTERM, on_signal);
 
   if (debug) {
-    sout("socket: %s  rate: %d  bits: %d  ch: %d\n", socket_path, rate,
-         bit_depth, channels);
+    soutf("socket: %s  rate: %d  bits: %d  ch: %d\n", socket_path, rate,
+          bit_depth, channels);
   }
 
   if (backend_init(&fmt) != 0) {
