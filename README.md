@@ -25,7 +25,7 @@ the only available backends are:
 I will work on more, but if you want to implement a backend for the platform you want, please do a pr
 
 ## usage
-<command who gives PCM> | shout
+command who gives PCM | shout
 
 flags:
 - -s <path> : where do you want your socket, /tmp/shout by default
