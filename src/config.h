@@ -3,7 +3,6 @@
 
 #include <stdbool.h>
 
-#define DEFAULT_SOCKET "/tmp/shout"
 #define DEFAULT_RATE 48000 /* This are Hz */
 #define DEFAULT_BITS 16    /* 16 or 32 only */
 #define DEFAULT_CHANNELS 2
